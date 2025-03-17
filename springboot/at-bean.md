@@ -57,4 +57,4 @@ public class B{
 问：`@Bean`方法会被多次调用吗？  
 答：默认单例作用域下，Spring 会缓存方法的返回值，确保多次调用返回同一个实例。
 
-![wang](./assets/images/3.jpg)
+![wang](../assets/images/3.jpg)
