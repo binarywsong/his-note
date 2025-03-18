@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r}from"./chunks/framework.DO_qJNgM.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"springboot/servlet.md","filePath":"springboot/servlet.md"}'),o={name:"springboot/servlet.md"};function s(a,n,c,p,i,l){return r(),t("div")}const m=e(o,[["render",s]]);export{d as __pageData,m as default};
