@@ -25,6 +25,7 @@ export default defineConfig({
           { text: 'Dairy', link: '/springboot/dairy' },
           { text: 'Servlet', link: '/springboot/servlet' },
           { text: '每日小Tip', link: '/springboot/servlet' },
+          { text: 'we', link: '/springboot/we' },
         ]
       }
     ],
