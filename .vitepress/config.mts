@@ -22,7 +22,9 @@ export default defineConfig({
           { text: '@Override', link: '/springboot/at-override' },
           { text: 'SaToken', link: '/springboot/sa-token' },
           { text: 'Question', link: '/springboot/question' },
-          { text: 'Dairy', link: '/springboot/dairy' }
+          { text: 'Dairy', link: '/springboot/dairy' },
+          { text: 'Servlet', link: '/springboot/servlet' },
+          { text: '每日小Tip', link: '/springboot/servlet' },
         ]
       }
     ],
