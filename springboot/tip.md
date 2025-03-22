@@ -100,26 +100,50 @@ public class CheckupWorkAsync{
 3. `@Data`：生成get、set方法。
 <br>
 
-4. `@NotBlank`:验证变量的值是否为空值或者空字符串。
+4. `@NotBlank`:验证变量的值是否为空值或者空字符串。(针对字符串)
 ```Java
 @NotBlank(message = "username不能为空")
 private String username; 
 ```
 <br>
 
-5. `@RestController`:接口方法返回对象，转换为json文本。在接口类里面使用，因为如果把当前的接口返回给对应的客户端，肯定需要把后端的数据转化为json文本，对应的客户端才能够更好的进行处理。
+5. `@NotNull`：用于标记某个字段、方法参数或返回值不允许为`null`。其核心目的是在编译时或运行时检查空值，避免潜在的`NullPointerException`。
+```Java
+@NotNull
+public Integer length;
+```
+<br>
+
+6. `@RestController`:接口方法返回对象，转换为json文本。在接口类里面使用，因为如果把当前的接口返回给对应的客户端，肯定需要把后端的数据转化为json文本，对应的客户端才能够更好的进行处理。
 
 <br>
 
-6. `@RequestMapping("/user")`:加一级类级别的映射,到时候客户端去访问当前的接口的时候，即`localhost:8088/user/**`来访问后面的接口。
+7. `@RequestMapping("/user")`:加一级类级别的映射,到时候客户端去访问当前的接口的时候，即`localhost:8088/user/**`来访问后面的接口。
 
 <br>
-<br>
 
-7. `@Repository`:将当前类注册为spring的bean；来表示数据访问层的bean。<br>
+8. `@Repository`:将当前类注册为spring的bean；来表示数据访问层的bean。<br>
 `@Service`:将当前类注册为spring的bean；来表示业务逻辑类的bean。<br>
 `@Component`:将当前类注册为spring的bean。<br>
 这样分开来做职责更加明确。
+
+<br>
+
+9. `@Pattern`:主要作用是对字符串字段进行正则表达式匹配，确保输入的数据符合指定的格式。注意跟其他验证注解的区别，比如`@Size`是限制长度，`@Email`是专门验证邮箱，而`@Pattern`更加灵活，可以用正则表达式自定义规则，另外，`@Pattern`的message属性，用于自定义错误信息。
+```Java
+@Pattern(regexp="^[a-zA-Z0-9]{6,20}$", message="password内容不正确")
+```
+
+<br>
+
+10. `@Min`：是`Java Bean Validation`中的一个注解，用于验证数值的最小值，它通常用在字段、方法参数或返回值上，确保数值不低于指定的最小值。
+
+<br>
+
+11. `@Range`:是`Hibernate Validator`提供的一个扩展注解，用于验证数值或 
+
+<br>
+<br>
 
 ## 构建
 1. 在Java文件夹下的`com.example.his.api`包下创建`mis`包，在`mis`包下新建一个包叫`service`,在`service`包下新建一个接口叫`UserService`,在接口里面声明抽象方法。接下来去到实现类里面把抽象方法实现一下，在package`service`底下新建一个包叫`Impl`，在这个包里面新建一个Java类叫`UserServiceImpl`。并且再`mis`包下边新建一个包叫`controller`,如果写Web方法就放在`controller`的实现类里面。
@@ -277,5 +301,21 @@ public interface UserRepository extends CrudRepository(User, Integer){
 
 }
 ```
+
+<br>
+<br>
+
+## 语句解读
+
+### @1
+```sql
+WHERE id=#{userId}
+```
+`#{}`同场出现在``MyBatis`这样的持久层框架中，用于参数占位符，用来动态替换为具体的值。这种写法在预编译SQL中的好处，比如参数化查询、提高安全性、以及数据库的查询性能优化。例如，使用`#{}`时，`MyBatis`会将参数作为预编译的参数传递，而不是直接拼接到SQL语句中，从而避免SQL注入攻击。<br>
+若`userId=100`，实际执行的SQL会变为：
+```sql
+WHERE id=?
+```
+
 
 
