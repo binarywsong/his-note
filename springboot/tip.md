@@ -140,7 +140,116 @@ public Integer length;
 
 <br>
 
-11. `@Range`:是`Hibernate Validator`提供的一个扩展注解，用于验证数值或 
+11. `@Range`:是`Hibernate Validator`提供的一个扩展注解，用于验证数值是否在指定范围内。
+
+<br>
+
+12. `@SaCheckPermission`:是`Sa-Token`权限认证框架提供的注解，用于在方法或接口级别进行权限验证，当用户访问被注解标记的资源时，系统会自动检查该用户是否具备指定权限，若无权限则拦截请求并抛出异常。<br>
+基础使用：添加依赖：在`pom.xml`中引入`Sa-Token`：
+```xml
+<dependency>
+    <groupId>cn.dev33</groupId>
+    <artifactId>sa-token-spring-boot-starter</artifactId>
+    <version>1.37.0</version>
+</dependency>
+```
+在方法上添加注解：
+```java
+@RestController
+public class UserController{
+    //检查单个权限
+    @SaCheckPermission("user:add")
+    @PostMapping("/user/add")    //进行映射  
+    public String addUser(){
+        return "创建用户成功";
+    }
+
+    //检查多个权限（AND逻辑）
+    @SaCheckPermmission({"user:delete","user:admin"})
+    @DeleteMapping("/user/{id}")    //使用delete请求方法
+    public String deleteUser(){
+        return "删除用户成功"；
+    }
+
+    //检查多个权限（OR逻辑）
+    @SaCheckPermission({"user:update","user:admin"},mode=SaMode.OR)
+    @PutMapping("/user/{id}")   //使用PUT请求方法，修改
+    public String updateUser(){
+        return "更新用户成功"；
+    }
+}
+```
+<br>
+
+如何实现免鉴权接口？<br>
+使用`@SaCheckDisable`或配置白名单：
+```java
+@SaCheckDisable
+@GetMapping("/public/data")
+public String publicData(){
+    return "开放数据"；
+}
+```
+<br>
+
+如何区分角色和权限？<br>
+角色：使用：
+```java
+@SaCheckRole("admin")
+```
+权限：使用：
+```java
+@SaCheckPermission("user:delete")
+```
+又或者：
+```java
+@SaCheckPermission(value="ROOT","USER:SELECT",mode=SaMode.OR)
+```
+
+<br>
+
+13. `@RequestBody`:是用来将HTTP请求体中的JSON或XML数据绑定到Java对象的。通常用于POST或PUT请求，处理前端发送的复杂结构数据。这个注解是Spring框架中用于将HTTP请求体内容绑定到Java对象的注解，主要用于处理JSON/XML格式的请求数据。<br>
+应用场景：接收前端通过POST、PUT等请求发送的复杂结构化数据，如对象、集合嵌套。
+<br>
+
+对比其他注解：<br>
+`@RequestParam`:接收URL参数或表单数据。
+`@PathVariable`:接收URL路径中的动态参数。
+`@RequestBody`:接收请求体中的结构化数据(如application/json)。
+
+<br>
+
+14. `@Valid`:此注解可能是在开发`RESTful API`时，遇到了需要客户端传入的数据的情况，比如表单提交或JSON请求体。`@Valid`通常与`@RequestBody`一起使用，用于触发`Bean Validation`,比如`Hibernate Validator`。
+<br>
+
+`@Valid`是`Java Bean Validation`规范中的注解，用于触发对对象属性的自动验证。在Spring中，它常与`@RequestBody`、`@ModelAttribute`等注解配合使用，确保客户端传入的数据符合业务规则（如非空、长度限制、格式校验等）。
+<br>
+
+核心功能：（1）自动校验请求数据：对客户端传入的JSON、表单等数据进行字段级验证，确保合法性：
+```java
+@PostMapping("/users")    //进行映射，使用的POST请求方法
+public ResponseEntity<User> createUser(@Valid @RequsetBody User user){
+    //若user的字段不符合校验规则，直接抛出异常
+    return ResponseEntity.ok(userService.save(user));
+}
+```
+<br>
+
+(2)支持级联验证：如果对象的属性是另一个对象，可通过嵌套`@Valid`触发级联校验：
+```java
+public class Order{
+    @Valid  //触发Address内部的校验规则
+    private Address address;
+}
+```
+<br>
+
+(3)与校验注解配合使用：需在字段上定义具体的校验规则：
+`@NotNull`:字段不能为null<br>
+`@Size`:字符串/集合长度范围<br>
+`@Email`:邮箱格式校验<br>
+`@Min/@Max`:数字最小值/最大值<br>
+`@Pattern`:正则表达式匹配<br>
 
 <br>
 <br>
@@ -246,6 +355,14 @@ spring.jpa.show-sql=true
 ![](../assets/images/image47.png)
 
 <br>
+
+1. 创建一个空的对象：
+```Java
+ArrayList<HashMap> list=new ArrayList<>();
+```
+因为可能在项目的时候，返回json数据给前端项目的时候，`spingboot`有一个特点：返回的json里面如果存在空值的话，`springboot`会自动把这个json属性给去掉，如果不希望前端拿到的json属性缺少属性，宁可让json的属性值是空字符串或者空的数组，也比空值强。如果这个json的属性值是空值，那么`springboot`返回的这个json里面就缺少这个属性。
+
+<br>
 <br>
 
 ## 问题
@@ -317,5 +434,155 @@ WHERE id=#{userId}
 WHERE id=?
 ```
 
+<br>
+<br>
+
+## java
+
+### @1
+写后端java代码的套路：先写持久层，然后是业务层和web层的代码。<br>
+持久层：通常指的是数据访问层，负责与数据库交互，比如使用JDBC、Hibernate或MyBatis。<br>
+业务层：也称为服务层，处理业务逻辑，确保业务流程正确执行。<br>
+Web层：或表现层，处理用户的HTTP请求和响应，比如Spring MVC中的控制器。<br>
+每一层的作用：<br>
+持久层负责数据的CRUD操作；业务层处理具体的业务规则和逻辑;Web层负责接收用户输入，调用业务业务层处理，并返回结果给用户。书写顺序方面，通常是从底层到高层，先写持久层，然后是业务层，最后是Web层。
+<br>
+
+如果混淆业务层和Web层的职责，或者在分层时不够清晰，导致代码耦合。应该强调各层的独立性和它们如何通过接口交互，以提高代码的可维护性和可测试性。
+<br>
+
+**书写顺序一般需要先定义实体类，然后写DAO接口和实现，接着是服务层接口和实现，最后是控制器。**
+<br>
 
 
+
+<br>
+<br>
+
+## DAO接口
+DAO的全称是`Data Access Object`,数据访问对象。dao接口即定义数据访问操作的方法，而不涉及具体实现。从分层架构的角度解释，比如MVC模式中，DAO属于数据访问层，负责与数据库交互。接口的作用是为了**解耦**，让业务逻辑层不直接依赖具体的数据库操作实现，方便替换和测试。
+<br>
+
+比如一个`UserDAO`接口，里面有save、findById等方法，然后有不同的实现类，比如说用JDBC、Hibernate或者JPA实现的。这样当更换持久层技术时，业务代码不需要改动，只需要换实现类。
+<br>
+
+DAO接口是软件设计中数据访问对象模式的核心组成部分，主要用于解耦业务逻辑与数据访问逻辑。DAO接口是一个定义数据操作方法的约定（方法签名），它声明了对某个实体（如数据库表）进行增删改查**CRUD**等操作的标准方法，但不提供具体实现：
+```java
+public interface UserDao{
+    User findById(Long id); //根据ID查询用户
+    void save(User user);   //保存用户
+    void update(User user); //更新用户
+    void deleteById(Long id);   //根据id删除用户
+    List<User> findAll();   //查询所有用户
+}
+```
+<br>
+
+DAO接口的实现:<br>
+接口定义规范后，需提供具体实现类：<br>
+（1）基于JDSC的实现
+```java
+public class UserDaoJdbcImpl implements UserDao{
+    @Override
+    public User findById(Long id){
+        //使用JDBC编写SQL查询逻辑
+        String sql="SELECT * FROM users WHERE id=?";
+        //执行查询并返回User对象
+    }
+}   
+```
+<br>
+
+（2）基于MyBatis的实现
+```java
+public interface UserDao{
+    @Select("SELECT * FROM users WHERE id = #{id}")
+    User findById(Long id);
+}
+```
+<br>
+
+（3）基于Spring Data JPA的实现
+```java
+public interface UserRepository extends JpaRepository<User,Long>{
+    //继承JpaRepository后，自动拥有findId、save等方法
+}
+```
+<br>
+
+DAO和Repository模式的区别:<br>
+DAO:设计目标（封装数据访问细节（SQL、事务））、抽象层次（较低层：直接操作表）、典型应用（JDBC、MyBatis）。<br>
+Repository:设计目标（提供面向对象的集合式数据操作接口）、抽象层次（较高层：领域驱动设计，DDD）、典型应用（Spring Data JPA、Hibernate）。
+
+<br>
+<br>
+
+## Spring MVC
+>首先，MVC是一个设计模式。<br>
+
+MVC(Model-View-Controller),用于将应用程序的逻辑分层，让代码更清晰、更易维护。它把程序分为三个核心部分：<br>
+（1）`Model`:管理数据和业务逻辑（如数据库操作、计算规则）；<br>
+类比现实例子：餐厅的厨房：处理食材、制作菜品。<br>
+（2）`View`:展示数据（如网页界面、APP页面）；<br>
+类比现实例子：餐厅的菜单和餐桌：展示菜品。<br>
+（3）`Controller`:接收用户输入（如点击按钮），协调Model和View更新；<br>
+类比现实例子：服务员：接收点餐，通知厨房，上菜。
+<br>
+
+工作流程:（1）用户通过View界面触发操作（例如点击按钮）；<br>
+（2）Controller接收用户请求，调用Model处理数据；<br>
+（3）Model更新数据后，通知View刷新界面。
+
+>`Spring MVC`是Java中的一个框架。<br>
+
+`Spring MVC`是`Spring`框架中的一个模块，专门用于简化`Java Web`开发。它基于MVC模式，提供了现成的组件来处理HTTP请求、数据绑定和视图渲染。<br>
+`Spring MVC`的核心组件：<br>
+（1）`DispatcherServlet`:前端控制器，统一接收所有请求并分发。
+（2）`Controller`:处理业务逻辑，返回数据或视图名称。
+（3）`ViewResolver`:根据视图名称找到具体的页面（如JSP、HTML）。
+（4）`Model`:封装数据，传递给视图层显示。
+<br>
+
+`Spring MVC`处理请求的流程：<br>
+（1）用户发送HTTP请求到`DispatcherServlet`。<br>
+（2）`DispatcherServlet`调用`HandleMapping`,找到对应的`Controller`。<br>
+（3）`Controller`处理请求，返回`Model`和视图名称。<br>
+（4）`ViewResolver`解析视图名称，找到具体的页面。<br>
+（5）`View`渲染数据（如填充HTML模板），返回响应给用户。
+<br>
+
+实例版：
+```java
+@Controller
+public class UserController{
+    @GetMapping("/user")
+    public String getUser(Model model){
+        User user = userService.findUser(); //Model处理数据
+        model.addAttribute("user", user);   //数据传递给View
+        return "user-page"; //返回视图名称（如user-page.jsp）
+    }
+}
+```
+<br>
+
+为什么需要`MVC`和`SpringMVC`？
+（1）代码分层清晰：业务逻辑、界面展示、用户输入分离、便于维护。
+（2）复用性高：Model可以复用与不同界面（如网页和手机APP）。
+（3）简化开发：`Spring MVC`封装了复杂操作（如请求解析、视图渲染），开发者只需关注业务逻辑。
+
+<br>
+<br>
+
+## 解耦
+>旨在降低组件之间的依赖关系，使各部分能够独立开发、测试、修改和扩展，从而提高系统的灵活性和可维护性。
+
+在软件设计中，模块之间的耦合度高的话，修改一个模块可能会影响到其他模块，这样维护起来就会很麻烦。比如面向对象编程，模块之间不直接依赖具体的实现，而是通过接口来通信，这样即使实现变了，接口不变的话其他模块也不需要改。又比如在分布式系统中，服务之间的解耦可能用消息队列，这样服务之间不直接调用，而是通过消息传递，这样即使一个服务暂时不可用，也不会直接影响其他服务。
+<br>
+
+不过，解耦也有代价，比如引入中间件可能会增加系统的复杂性，或者增加延迟。比如用消息队列的话，消息的处理可能会有延迟，而且需要处理消息丢失或者重复的情况。所以在设计的时候需要权衡解耦带来的好处和引入的复杂性。
+<br>
+
+另外，设计模式中的观察者模式、发布-订阅模式也可以看作解耦的一种方式。让发布者和订阅者不直接依赖彼此，而是通过事件或者消息来通信。这样发布者不需要知道谁订阅了消息，订阅者也不需要知道消息来自哪里，双方都更独立。
+<br>
+
+再比如，解耦的另一个方面可能是分层架构，比如MVC模式，把模型、视图、控制器分开，各自负责不同的职责，这样修改视图不会影响到模型，或者修改控制器也不会直接影响视图。
