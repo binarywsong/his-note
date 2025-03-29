@@ -24,7 +24,14 @@ export default defineConfig({
           { text: 'Question', link: '/springboot/question' },
           { text: 'Dairy', link: '/springboot/dairy' },
           { text: 'Servlet', link: '/springboot/servlet' },
-          { text: '每日小Tip', link: '/springboot/tip' }
+          { text: '每日小Tip', link: '/springboot/tip' },
+          { text: '项目构建', link: '/springboot/demo' }
+        ]
+      },
+      {
+        text: 'Eight-legged Essay',
+        items: [
+          { text: 'Redis', link: '/eightessay/redis'}
         ]
       }
     ],
