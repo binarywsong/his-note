@@ -269,3 +269,9 @@ int userId=Integer.parseInt(loginId.toString());
 - `Integer.parseInt(...)`:将字符串解析为`int`基本类型
 风险：若字符串内容非纯数字，会抛出`NumberFormatException`
 
+<br>
+<br>
+
+# 3/29
+1. `markdown`中首行缩进可用两种方法：（1）使用`&nbsp;`（2）`<p style="text-indent: 2em"></p>`
+2. `markdown`中`.md`运行指令：`npm run docs:dev`

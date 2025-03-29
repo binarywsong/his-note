@@ -14,6 +14,7 @@ export default defineConfig({
     sidebar: [
       {
         text: 'SpringBoot',
+        collapsed: true,
         items: [
           // { text: 'Markdown Examples', link: '/markdown-examples' },
           // { text: 'Runtime API Examples', link: '/api-examples' },
@@ -30,8 +31,16 @@ export default defineConfig({
       },
       {
         text: 'Eight-legged Essay',
+        collapsed: true,
         items: [
           { text: 'Redis', link: '/eightessay/redis'}
+        ]
+      },
+      {
+        text: 'Interview',
+        collapsed: true,
+        items: [
+          { text: '面试宝典',link: '/interview/work'}
         ]
       }
     ],
