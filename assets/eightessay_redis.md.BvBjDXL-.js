@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as s}from"./chunks/framework.DO_qJNgM.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"eightessay/redis.md","filePath":"eightessay/redis.md"}'),a={name:"eightessay/redis.md"};function r(i,o,c,n,d,p){return s(),t("div")}const f=e(a,[["render",r]]);export{m as __pageData,f as default};
