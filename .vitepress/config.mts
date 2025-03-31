@@ -42,6 +42,13 @@ export default defineConfig({
         items: [
           { text: '面试宝典',link: '/interview/work'}
         ]
+      },
+      {
+        text: 'Docker',
+        collapsed: true,
+        items:[
+          { text: '命令', link: '/docker/command'}
+        ] 
       }
     ],
 

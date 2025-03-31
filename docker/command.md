@@ -1,0 +1,1 @@
+1. 查看容器命令：$`docker ps | grep minio`
