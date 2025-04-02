@@ -30,6 +30,13 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Cloud',
+        collapsed: true,
+        items: [
+          { text: 'minio容器', link: '/cloud/minio'}
+        ]
+      },
+      {
         text: 'Eight-legged Essay',
         collapsed: true,
         items: [
@@ -49,6 +56,13 @@ export default defineConfig({
         items:[
           { text: '命令', link: '/docker/command'}
         ] 
+      },
+      {
+        text: 'Bug',
+        collapesd: true,
+        items:[
+          {text: 'bug', link: '/bug/bug'}
+        ]
       }
     ],
 
