@@ -63,6 +63,13 @@ export default defineConfig({
         items:[
           { text: 'Bug', link: '/bug/Bug'}
         ]
+      },
+      {
+        text: 'Java',
+        collapsed: true,
+        items:[
+          { text: 'Java基础语法', link: '/java/javaSE'}
+        ]
       }
     ],
 

@@ -252,6 +252,33 @@ public class Order{
 `@Pattern`:正则表达式匹配<br>
 
 <br>
+
+15. `@Cacheable`：将方法中返回的对象缓存到`redis`中，`redis`中的数据有两个属性，一个value,一个`key`：
+```Java
+@Cacheable(cacheNames="goods", key="#id")
+public HashMap searchById(int id){
+    ...
+}
+```
+该注解想要起作用，还需在主类中添加`@EnableCaching`:
+```Java
+@EnableCaching
+public class HisApplication{
+    public static void main(String[] args){
+        ...
+    }
+}
+```
+当需要销毁商品的缓存时，需要给更新或删除的方法加`@CacheEvict`:
+```Java
+@CacheEvict(cacheNames="goods", key="#id", condition="#param.get('status')==false")
+public boolean updateStatus(Map param){
+    ...
+}
+```
+(上述param对象有两个属性，一个主键id，一个status)
+
+<br>
 <br>
 
 ## 构建
