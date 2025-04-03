@@ -61,7 +61,7 @@ export default defineConfig({
         text: 'Bug',
         collapesd: true,
         items:[
-          { text: 'Bug', link: '/bug/Bug'}
+          { text: 'bug', link: '/bug/Bug'}
         ]
       },
       {
