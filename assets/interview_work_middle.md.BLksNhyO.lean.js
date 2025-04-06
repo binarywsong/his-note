@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as r}from"./chunks/framework.DO_qJNgM.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"interview/work_middle.md","filePath":"interview/work_middle.md"}'),o={name:"interview/work_middle.md"};function a(i,d,n,s,c,_){return r(),t("div")}const p=e(o,[["render",a]]);export{l as __pageData,p as default};
