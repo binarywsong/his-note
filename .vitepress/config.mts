@@ -30,10 +30,10 @@ export default defineConfig({
         ]
       },
       {
-        text: 'Cloud',
+        text: 'Java',
         collapsed: true,
-        items: [
-          { text: 'minio容器', link: '/cloud/minio'}
+        items:[
+          { text: 'Java基础语法', link: '/java/javaSE'}
         ]
       },
       {
@@ -61,6 +61,13 @@ export default defineConfig({
         ] 
       },
       {
+        text: 'Cloud',
+        collapsed: true,
+        items: [
+          { text: 'minio容器', link: '/cloud/minio'}
+        ]
+      },
+      {
         text: 'Bug',
         collapesd: true,
         items:[
@@ -68,10 +75,10 @@ export default defineConfig({
         ]
       },
       {
-        text: 'Java',
-        collapsed: true,
+        text: 'Tips',
+        collapesd: true,
         items:[
-          { text: 'Java基础语法', link: '/java/javaSE'}
+          { text: 'tip1', link: '/tip/tip1'}
         ]
       }
     ],
