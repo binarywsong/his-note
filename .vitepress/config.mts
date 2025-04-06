@@ -47,7 +47,10 @@ export default defineConfig({
         text: 'Interview',
         collapsed: true,
         items: [
-          { text: '面试宝典',link: '/interview/work'}
+          { text: '面试宝典',link: '/interview/work'},
+          { text: '面试宝典',link: '/interview/work_2'},
+          { text: '面试宝典',link: '/interview/work'},
+          { text: 'Java核心技术高阶',link: '/interview/work_1'}
         ]
       },
       {

@@ -279,6 +279,14 @@ public boolean updateStatus(Map param){
 (上述param对象有两个属性，一个主键id，一个status)
 
 <br>
+
+16. `@Slf4j`:是Lombok提供的一个注解，用于在Java类自动生成一个SLF4J的日志对象log，从而简化日志代码的编写。
+
+<br>
+
+17. `@Resource`:用于依赖注入（即自动将Spring容器中的Bean注入到目标位置），在Spring框架中，它被用来自动装配Bean。
+
+<br>
 <br>
 
 ## 构建
