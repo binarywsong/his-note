@@ -71,7 +71,7 @@ export default defineConfig({
         text: 'Bug',
         collapsed: true,
         items:[
-          { text: 'bug', link: '/bug/_bug'}
+          { text: 'bug', link: '/bug/bug'}
         ]
       },
       {
