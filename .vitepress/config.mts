@@ -48,9 +48,9 @@ export default defineConfig({
         collapsed: true,
         items: [
           { text: '面试宝典',link: '/interview/work'},
-          { text: '面试宝典',link: '/interview/work_2'},
-          { text: '面试宝典',link: '/interview/work'},
-          { text: 'Java核心技术高阶',link: '/interview/work_1'}
+          { text: 'Java核心技术',link: '/interview/work_bottom'},
+          { text: 'Java核心技术进阶',link: '/interview/work_middle'},
+          { text: 'Java核心技术高阶',link: '/interview/work_high'}
         ]
       },
       {
@@ -69,14 +69,14 @@ export default defineConfig({
       },
       {
         text: 'Bug',
-        collapesd: true,
+        collapsed: true,
         items:[
-          { text: 'bug', link: '/bug/Bug'}
+          { text: 'bug', link: '/bug/_bug'}
         ]
       },
       {
         text: 'Tips',
-        collapesd: true,
+        collapsed: true,
         items:[
           { text: 'tip1', link: '/tip/tip1'}
         ]
