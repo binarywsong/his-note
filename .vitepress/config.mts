@@ -33,6 +33,7 @@ export default defineConfig({
         text: 'Java',
         collapsed: true,
         items:[
+          { text: '从0到1', link: '/java/demo1.md'},
           { text: 'Java基础语法', link: '/java/javaSE'}
         ]
       },
