@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as t,ae as n}from"./chunks/framework.DO_qJNgM.js";const o=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"bug/bug.md","filePath":"bug/bug.md"}'),e={name:"bug/bug.md"};function h(p,s,l,k,d,r){return t(),a("div",null,s[0]||(s[0]=[n("",13)]))}const c=i(e,[["render",h]]);export{o as __pageData,c as default};
