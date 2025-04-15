@@ -29,7 +29,7 @@ JavaME：微型版，针对嵌入式设备和移动终端（现已逐渐被Andro
 <br>
 <br>
 
-## Java Web
+## Java Web（简单了解）
 ### cookie
 ### session
 
@@ -42,14 +42,13 @@ ssm框架
 <br>
 <br>
 
-## Spring MVC
->简单了解一下
+## Spring MVC（简单了解）
 
 <br>
 <br>
 
-## mybatis
->了解一下怎么使用
+## mybatis（了解一下怎么使用）
+
 <br>
 
 Mybatis是一个半自动的ORM持久层框架，内部封装了JDBC。作为开发者只需关注sql语句本身。Mybatis是通过xml或注解的方式将需要执行的各种statement配置起来，通过Java对象和statement中的sql动态参数映射生成最终执行的sql语句，最终由Mybatis框架执行sql并将结果映射为Java对象并返回。Mybatis支持定制化SQL、存储过程以及高级映射。Mybatis是可以双向映射的，即可以把数据集映射为Java对象，也可以将Java对象映射为i数据库中的记录。

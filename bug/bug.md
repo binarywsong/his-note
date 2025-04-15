@@ -28,3 +28,9 @@ rm -rf data //删除文件
 chmod -R 755 /data/his/front/goods  //赋予权限
 ```
 
+<br>
+
+## 重启docker服务
+```bash
+sudo systemctl restart docker
+```
