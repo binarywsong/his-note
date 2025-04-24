@@ -34,6 +34,7 @@ export default defineConfig({
         collapsed: true,
         items:[
           { text: '从0到1', link: '/java/demo1.md'},
+          { text: 'SpringBoot', link: '/java/demo2.md'},
           { text: 'Java基础语法', link: '/java/javaSE'}
         ]
       },
